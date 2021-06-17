@@ -1,0 +1,57 @@
+PROBLEM LINK: https://leetcode.com/problems/check-if-a-string-contains-all-binary-codes-of-size-k/
+
+SOLUTION:
+
+string findBin(unsigned n, int k){
+        string str;
+        for(unsigned i=1<<k-1; i>0; i=i/2){
+            (n & i)? str.push_back('1') : str.push_back('0'); 
+        }
+        return str;
+    }
+    
+    bool hasAllCodes(string s, int k) {
+        for(unsigned n=0; log(n)<k; n++){
+            string res = findBin(n, k);
+            cout<<res<<"   ";
+            if(s.find(res) == string::npos)
+                return false;
+        }
+        return true;
+    }
+    
+
+This code only passes 111 test cases out of 200. it gave me TLE.
+________________________________________________________________________________
+
+    
+    bool hasAllCodes(string s, int k) {
+        if(k>s.size()) return false;
+        
+        unordered_set<string> res;
+        
+        for(int i=0;i<=s.size()-k; i++){
+            res.insert(s.substr(i,k));
+        }
+        
+        if(res.size() == pow(2,k))
+            return true;
+        else
+            return false;
+    }
+    
+    
+    
+    In this approach we first check size of string S is greater or less than 'k'.
+    Then create a set of string type.
+    Then start iterate over all the possible index of string and find all possible substring of size 'k' using "s.substr(i,k)" and inserting into set.
+    Then find the size of set and compare it with 2^k bcz we know that all possible number of string of size k is 2^k.
+    
+          let, k=1    ---->    (0, 1)             --->  2^1 = 2 substrings possible
+               k=2    ---->    (00, 01, 10, 11)   --->  2^2 = 4 substrings possible    etc.
+    
+    
+    
+    
+    
+    

@@ -1,0 +1,70 @@
+PROBLEM LINK: https://leetcode.com/problems/subsets-ii/
+
+
+SOLUTION:
+
+void findSubset(vector<int>& nums, vector<int> temp, int i, set<vector<int>> &cont){
+        if(i == nums.size()){
+            cont.insert(temp);
+            return;
+        }
+        
+        findSubset(nums, temp, i+1, cont);
+        temp.push_back(nums[i]);
+        findSubset(nums, temp, i+1, cont);
+    }
+    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        
+        vector<int> temp;
+        vector<vector<int>> res;
+        set<vector<int>> cont;
+        
+        sort(nums.begin(),nums.end());
+        
+        findSubset(nums, temp, 0, cont);
+        
+        for(auto it:cont){
+            res.push_back(it);
+        }
+        
+        return res;        
+    }
+    
+    
+    
+ _______________________________________________________________________________________________________
+ 
+ 
+ void findSet(vector<int> &nums, vector<int> temp, vector<vector<int>> &res, int i){
+        if(i == nums.size()){
+            res.push_back(temp);
+            return;
+        }
+        
+        if(temp.empty() || temp.back() != nums[i]){           //it check whether temp[] is empty OR temp[] ka last element NOT EQUAL to nums[] ka current element jo
+                                                                        enter hone wala h nums[] me.
+            findSet(nums, temp, res, i+1);
+        }
+        
+        temp.push_back(nums[i]);
+        findSet(nums, temp, res, i+1);        
+    }
+    
+    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> temp;
+        
+        sort(nums.begin(), nums.end());
+        
+        findSet(nums, temp, res, 0);
+        
+        return res;
+    }
+    
+    
+    
+    
+    
+    

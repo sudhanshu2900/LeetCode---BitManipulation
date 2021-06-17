@@ -1,0 +1,48 @@
+PROBLEM LINK: https://leetcode.com/problems/subsets/
+
+SOLUTION:
+
+vector<vector<int>> res;
+    
+    void findSets(vector<int>& nums, vector<int> powSet, int i){
+        
+        if(nums.size() == i){
+            res.push_back(powSet);
+            return;
+        }
+        
+        
+        findSets(nums, powSet, i+1);
+        powSet.push_back(nums[i]);
+        findSets(nums, powSet, i+1);
+        
+    }
+    
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int> powSet;
+        
+        findSets(nums, powSet, 0);
+        
+        return res;
+    }
+    
+    
+    
+    
+    
+       EX. arr = [1,2,3]
+           Possible subsets are- [],[1],[2],[1,2]
+           
+                                              []
+                                            /    \
+                                         [1]      []
+                                        /   \   /    \
+                                    [1,2]  [1] [2]   []    
+                                   
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
